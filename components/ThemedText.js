@@ -1,18 +1,6 @@
-import { Text, type TextProps, StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
 
-export type ThemedTextProps = TextProps & {
-  lightColor?: string;
-  darkColor?: string;
-  type?: "default" | "title" | "defaultSemiBold" | "subtitle" | "link";
-};
-
-export function ThemedText({
-  style,
-  lightColor,
-  darkColor,
-  type = "default",
-  ...rest
-}: ThemedTextProps) {
+export function ThemedText({ style, lightColor, darkColor, type = "default", ...rest }) {
   return (
     <Text
       style={[

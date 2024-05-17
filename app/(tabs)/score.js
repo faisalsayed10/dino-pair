@@ -1,6 +1,6 @@
 import { SafeAreaView, View } from "react-native";
 
-import { ThemedText } from "@/components/ThemedText";
+import { ThemedText } from "../../components/ThemedText";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
@@ -23,7 +23,7 @@ const getScores = async () => {
 };
 
 export default function ScoreScreen() {
-  const [scores, setScores] = useState<{ game: string; score: number }[]>([]);
+  const [scores, setScores] = useState([]);
 
   useEffect(() => {
     getScores().then(setScores);
