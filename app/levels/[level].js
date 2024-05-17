@@ -70,7 +70,7 @@ export default function GameScreen() {
 
   return (
     <SafeAreaView>
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: "#FFB340", height: "100%" }}>
         <ThemedText type="title" style={styles.title}>
           Score: {score}
         </ThemedText>
@@ -100,7 +100,6 @@ export default function GameScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#f2f2f2",
     paddingTop: 50,
     flexDirection: "row",
     flexWrap: "wrap",
