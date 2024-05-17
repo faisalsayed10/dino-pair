@@ -1,14 +1,14 @@
 import { SafeAreaView, StyleSheet, TouchableOpacity, View } from "react-native";
 
-import { ThemedText } from "@/components/ThemedText";
-import { getRandomImages, images } from "@/lib/cards";
+import { ThemedText } from "../../components/ThemedText";
+import { getRandomImages, images } from "../../lib/cards";
 import { useEffect, useState } from "react";
 import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { ScrollView } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const storeData = async (game: string, value: number) => {
+const storeScore = async (game, value) => {
   try {
     const prev = await AsyncStorage.getItem(`score-${game}`).then((value) =>
       parseInt(value || "0")
@@ -25,16 +25,14 @@ const storeData = async (game: string, value: number) => {
 export default function GameScreen() {
   const { level } = useLocalSearchParams();
 
-  const [cards, setCards] = useState<number[]>(
-    getRandomImages((8 * parseInt(level as string)) as 8 | 16 | 24)
-  );
-  const [flippedCards, setFlippedCards] = useState<number[]>([]);
-  const [matchedCards, setMatchedCards] = useState<number[]>([]);
-  const [score, setScore] = useState<number>(0);
+  const [cards, setCards] = useState(getRandomImages(8 * parseInt(level)));
+  const [flippedCards, setFlippedCards] = useState([]);
+  const [matchedCards, setMatchedCards] = useState([]);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     setScore(matchedCards.length / 2);
-    storeData(level as string, matchedCards.length / 2);
+    storeScore(level, matchedCards.length / 2);
   }, [matchedCards]);
 
   useEffect(() => {
@@ -58,7 +56,7 @@ export default function GameScreen() {
     }
   }, [matchedCards]);
 
-  const handleCardClick = (index: number) => {
+  const handleCardClick = (index) => {
     if (flippedCards.length < 2 && !flippedCards.includes(index) && !matchedCards.includes(index)) {
       setFlippedCards([...flippedCards, index]);
     }
@@ -86,11 +84,7 @@ export default function GameScreen() {
                 activeOpacity={1}
               >
                 {(flippedCards.includes(index) || matchedCards.includes(index)) && (
-                  <Image
-                    contentFit="cover"
-                    source={images[image as keyof typeof images]}
-                    style={styles.image}
-                  />
+                  <Image contentFit="cover" source={images[image]} style={styles.image} />
                 )}
               </TouchableOpacity>
             );

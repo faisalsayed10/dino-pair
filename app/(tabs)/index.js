@@ -1,9 +1,9 @@
 import { SafeAreaView, StyleSheet, TouchableOpacity, View } from "react-native";
 
-import { HelloWave } from "@/components/HelloWave";
-import { ThemedText } from "@/components/ThemedText";
 import { useRouter } from "expo-router";
 import { FlatList } from "react-native-gesture-handler";
+import { HelloWave } from "../../components/HelloWave";
+import { ThemedText } from "../../components/ThemedText";
 
 export default function HomeScreen() {
   const router = useRouter();
